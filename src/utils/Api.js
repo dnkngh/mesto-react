@@ -15,7 +15,7 @@ class Api {
     return Promise.reject(`${res.status}`);
   };
 
-  _getInitialCards() {
+  getInitialCards() {
     return this._request(
       this._baseUrl + 'cards',
       {
@@ -111,6 +111,13 @@ class Api {
   };
 }
 
+const api = new Api({
+  baseUrl: 'https://nomoreparties.co/v1/cohort-64/',
+  headers: {
+    authorization: '0bd885b9-3a94-4715-9b47-6375e24059b0',
+    'Content-Type': 'application/json',
+  },
+});
 
 
 export { api }

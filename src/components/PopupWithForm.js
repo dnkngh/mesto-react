@@ -11,6 +11,7 @@ function PopupWithForm(props) {
           type="button"
           className="popup__close-button button button_opacity_sixty"
           aria-label="Закрыть"
+          onClick={props.onClose}
         ></button>
       </div>
     </div>

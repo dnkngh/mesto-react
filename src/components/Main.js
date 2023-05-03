@@ -1,55 +1,70 @@
 import React from 'react'
 
-import { api } from './Api'
+import { api } from '../utils/Api'
+import Card from './Card'
 
 
-function Main({handleEditAvatarClick, handleEditProfileClick, handleAddPlaceClick}) {
-  const [username, setUsername] = React.useState('123')
-  const [userabout, setUserabout] = React.useState()
-  const [useravatar, setUseravatar] = React.useState()
+function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
+  const [userName, setUserName] = React.useState()
+  const [userDescription, setUserDescription] = React.useState()
+  const [userAvatar, setUserAvatar] = React.useState()
+  const [cards, setCards] = React.useState([])
 
   React.useEffect(() => {
     api.getUserInfo().then(data => {
-      setUsername(data.name);
-      setUserabout(data.about);
-      setUseravatar(data.avatar);
+      setUserName(data.name);
+      setUserDescription(data.about);
+      setUserAvatar(data.avatar);
     })
+  }, []);
+
+  React.useEffect(() => {
+    api.getInitialCards().then(
+      data => {
+        setCards(data)
+      }
+    )
   }, []);
 
 
   return(
     <main className="content">
       <section className="profile">
-        <img src="../index.js" alt="Аватар" className="profile__avatar" />
+        <img src={userAvatar} alt="Аватар" className="profile__avatar" />
         <button
           type="button"
           className="profile__avatar-edit-button"
-          onClick={handleEditAvatarClick}
+          onClick={onEditAvatar}
         ></button>
         <div className="profile__info">
           <div className="profile__name-wrapper">
-            <h1 className="profile__name">Жак-Ив Кусто</h1>
+            <h1 className="profile__name">{userName}</h1>
             <button
               type="button"
               className="profile__edit-button button button_opacity_sixty"
               title="Редактировать профиль"
               aria-label="Редактировать профиль"
-              onClick={handleEditProfileClick}
+              onClick={onEditProfile}
             ></button>
           </div>
-          <p className="profile__about">Исследователь океана</p>
+          <p className="profile__about">{userDescription}</p>
         </div>
         <button
           type="button"
           className="profile__add-button button button_opacity_sixty"
           title="Добавить место"
           aria-label="Добавить место"
-          onClick={handleAddPlaceClick}
+          onClick={onAddPlace}
         ></button>
       </section>
 
       <section className="elements">
         <div className="elements__list">
+          {cards.map(card => <Card
+              key={card._id}
+              card={card}
+              onCardClick={onCardClick}
+          />)}
         </div>
       </section>
     </main>

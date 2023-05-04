@@ -1,7 +1,9 @@
 .header {
   display: flex;
   justify-content: space-between;
-  margin: 45px auto 0 auto;
+  /*margin: 45px auto 0 auto;*/
+  margin: 0 auto;
+  padding-top: 45px;
   max-width: 880px;
   border-bottom: 1px rgb(84, 84, 84, .7) solid;
 }
@@ -9,7 +11,8 @@
 
 @media screen and (max-width: 899px) {
   .header {
-    margin: 28px auto 0 auto;
+    /*margin: 28px auto 0 auto;*/
+    padding-top: 28px;
     max-width: 100%;
   }
 }

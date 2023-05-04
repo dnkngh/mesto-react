@@ -5,18 +5,10 @@ import Card from './Card'
 
 
 function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
-  const [userName, setUserName] = React.useState()
-  const [userDescription, setUserDescription] = React.useState()
-  const [userAvatar, setUserAvatar] = React.useState()
-  const [cards, setCards] = React.useState([])
-
-  React.useEffect(() => {
-    api.getUserInfo().then(data => {
-      setUserName(data.name);
-      setUserDescription(data.about);
-      setUserAvatar(data.avatar);
-    })
-  }, []);
+  const [userName, setUserName] = React.useState();
+  const [userDescription, setUserDescription] = React.useState();
+  const [userAvatar, setUserAvatar] = React.useState();
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api.getInitialCards().then(
@@ -24,6 +16,14 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
         setCards(data)
       }
     )
+  }, []);
+
+  React.useEffect(() => {
+    api.getUserInfo().then(data => {
+      setUserName(data.name);
+      setUserDescription(data.about);
+      setUserAvatar(data.avatar);
+    })
   }, []);
 
 
@@ -68,7 +68,7 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
         </div>
       </section>
     </main>
-  )
-}
+  );
+};
 
 export default Main

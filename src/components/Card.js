@@ -7,7 +7,12 @@ function Card(props) {
 
   return(
     <article className="elements__element">
-      <img src={props.card.link} alt={props.card.name} className="elements__image" />
+      <img
+        className="elements__image"
+        src={props.card.link}
+        alt={props.card.name}
+        onClick={handleCardClick}
+      />
       <div className="elements__description">
         <h2 className="elements__title">{props.card.name}</h2>
         <div className="elements__favorite-container">
@@ -21,7 +26,7 @@ function Card(props) {
         <button className="elements__delete-button"></button>
       </div>
     </article>
-  )
-}
+  );
+};
 
 export default Card

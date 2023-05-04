@@ -11,11 +11,9 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.getInitialCards().then(
-      data => {
-        setCards(data)
-      }
-    )
+    api.getInitialCards().then(data => {
+      setCards(data);
+    });
   }, []);
 
   React.useEffect(() => {
@@ -23,7 +21,7 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick}) {
       setUserName(data.name);
       setUserDescription(data.about);
       setUserAvatar(data.avatar);
-    })
+    });
   }, []);
 
 

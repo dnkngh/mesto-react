@@ -49,6 +49,7 @@ function App() {
       <PopupWithForm
         name='edit-profile'
         title='Редактировать профиль'
+        submitButtonText="Сохранить"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
       >
@@ -81,6 +82,7 @@ function App() {
       <PopupWithForm
         name="add-place"
         title="Новое место"
+        submitButtonText="Создать"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
       >
@@ -111,6 +113,7 @@ function App() {
       <PopupWithForm
         name="update-avatar"
         title="Обновить аватар"
+        submitButtonText="Сохранить"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
       >
@@ -130,6 +133,7 @@ function App() {
       <PopupWithForm
         name="confirm-delete"
         title="Вы уверены?"
+        submitButtonText="Да"
       >
       </PopupWithForm>
 

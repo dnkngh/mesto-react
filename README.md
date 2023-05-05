@@ -1,5 +1,5 @@
-# Проект Mesto
-https://dnkngh.github.io/mesto/
+# Проект Mesto-react
+https://dnkngh.github.io/mesto-react/
 
 ## Описание
 Проект о путешествиях
@@ -8,11 +8,13 @@ https://dnkngh.github.io/mesto/
 - HTML
 - CSS
 - JS
-- Адаптивная верстка
-- Grid
-- Flex-box
-- Медиа-запросы
+- React
+- Webpack
 
-## Планы
+## Макет
+[Figma](https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript.-Sprint-9?type=design&node-id=0-1&t=uIqo2uvQcQWVwCdP-0")
 
-- Создание бэкенда
+## 
+
+## Запуск
+```npm start```

@@ -15,19 +15,19 @@ function App() {
 
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
-  };
+  }
 
   function handleAddPlaceClick() {
     setAddPlacePopupOpen(true);
-  };
+  }
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
-  };
+  }
 
   function handleCardClick(card) {
     setSelectedCard(card);
-  };
+  }
 
   function closeAllPopups() {
     setEditProfilePopupOpen(false);
@@ -143,6 +143,6 @@ function App() {
       />
     </div>
   );
-};
+}
 
 export default App

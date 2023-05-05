@@ -3,7 +3,7 @@ import React from 'react'
 function Card({card, onCardClick}) {
   function handleCardClick() {
     onCardClick(card);
-  };
+  }
 
   return(
     <article className="elements__element">
@@ -27,6 +27,6 @@ function Card({card, onCardClick}) {
       </div>
     </article>
   );
-};
+}
 
 export default Card

@@ -1,8 +1,22 @@
 import React from 'react'
 
-function Card({card, onCardClick}) {
+import {CurrentUserContext} from '../contexts/CurrentUserContext'
+
+
+function Card({card, onCardClick, onCardLike}) {
+  const currentUser = React.useContext(CurrentUserContext);
+  const isOwn = card.owner._id === currentUser._id;
+  const isLiked = card.likes.some(i => i._id === currentUser._id);
+  const cardLikeButtonClassName = (
+    `elements__favorite-disabled button button_opacity_fifty ${isLiked && 'elements__favorite-active'}`
+  );
+
   function handleCardClick() {
     onCardClick(card);
+  }
+
+  function handleLikeClick() {
+    onCardLike(card);
   }
 
   return(
@@ -18,12 +32,13 @@ function Card({card, onCardClick}) {
         <div className="elements__favorite-container">
           <button
             type="button"
-            className="elements__favorite-disabled button button_opacity_fifty"
+            className={cardLikeButtonClassName}
             aria-label="Добавить в избранное"
+            onClick={handleLikeClick}
           ></button>
           <span className="elements__favorite-count">{card.likes.length}</span>
         </div>
-        <button className="elements__delete-button"></button>
+        {isOwn && <button className="elements__delete-button"></button>}
       </div>
     </article>
   );

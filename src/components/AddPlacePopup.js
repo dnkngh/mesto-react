@@ -7,6 +7,13 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
   const [name, setName] = React.useState('');
   const [link, setLink] = React.useState('');
 
+  React.useEffect(() => {
+    if (isOpen) {
+      setName('');
+      setLink('');
+    }
+  }, [isOpen]);
+
   function handleNameChange(evt) {
     setName(evt.target.value);
   }
@@ -42,6 +49,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
           minLength="2"
           maxLength="30"
           required
+          value={name || ''}
           onChange={handleNameChange}
         />
         <span className="popup__error placename-error"></span>
@@ -52,6 +60,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
           type="url"
           placeholder="Ссылка на картинку"
           required
+          value={link || ''}
           onChange={handleLinkChange}
         />
         <span className="popup__error placeimage-error"></span>

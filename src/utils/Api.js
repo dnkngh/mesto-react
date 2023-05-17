@@ -35,28 +35,28 @@ class Api {
     );
   };
 
-  setUserInfo(inputValues) {
+  setUserInfo(data) {
     return this._request(
       this._baseUrl + 'users/me',
       {
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
-          name: inputValues.username,
-          about: inputValues.userabout,
+          name: data.name,
+          about: data.about,
         }),
       },
     );
   };
 
-  setUserAvatar(inputValues) {
+  setUserAvatar(data) {
     return this._request(
       this._baseUrl + 'users/me/avatar',
       {
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
-          avatar: inputValues.useravatar,
+          avatar: data.avatar,
         }),
       },
     );

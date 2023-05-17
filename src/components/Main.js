@@ -7,17 +7,8 @@ import { api } from '../utils/Api'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 
-function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick, handleCardLike}) {
+function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike, onCardDelete, cards}) {
   const currentUser = React.useContext(CurrentUserContext);
-
-
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api.getInitialCards().then(data => {
-      setCards(data);
-    });
-  }, []);
 
   return(
     <main className="content">
@@ -56,7 +47,8 @@ function Main({onEditAvatar, onEditProfile, onAddPlace, onCardClick, handleCardL
               key={card._id}
               card={card}
               onCardClick={onCardClick}
-              onCardLike={handleCardLike}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
           />)}
         </div>
       </section>

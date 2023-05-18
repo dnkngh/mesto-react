@@ -1,13 +1,13 @@
 import React from 'react'
 
 import AddPlacePopup from './AddPlacePopup'
+import ConfirmDeletePopup from './ConfirmDeletePopup'
 import EditAvatarPopup from './EditAvatarPopup'
 import EditProfilePopup from './EditProfilePopup'
 import Footer from './Footer'
 import Header from './Header'
 import ImagePopup from './ImagePopup'
 import Main from './Main'
-import PopupWithForm from './PopupWithForm'
 
 import { api } from '../utils/Api'
 
@@ -18,20 +18,22 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  const [isConfirmDeletePopupOpen, setConfirmDeletePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+  const [cardId, setCardId] = React.useState('');
 
   React.useEffect(() => {
     api.getInitialCards().then(data => {
       setCards(data);
-    });
+    }).catch(error => console.log(error));
   }, []);
 
   React.useEffect(() => {
     api.getUserInfo().then(userData => {
       setCurrentUser(userData);
-    });
+    }).catch(error => console.log(error));
   }, []);
 
   function handleEditProfileClick() {
@@ -50,10 +52,16 @@ function App() {
     setSelectedCard(card);
   }
 
+  function handleCardDeleteClick(card) {
+    setCardId(card._id);
+    setConfirmDeletePopupOpen(true);
+  }
+
   function closeAllPopups() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
+    setConfirmDeletePopupOpen(false);
     setSelectedCard(null);
   }
 
@@ -62,13 +70,15 @@ function App() {
 
     api.changeLikeCardStatus(card._id, !isLiked).then(newCard => {
       setCards((state) => state.map(c => c._id === card._id ? newCard : c));
-    });
+    }).catch(error => console.log(error));
   }
 
-  function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      setCards(cards.filter(item => item !== card));
-    });
+  function handleCardDelete() {
+    api.deleteCard(cardId).then(() => {
+      setCards(cards.filter(item => item._id !== cardId));
+    }).catch(error => console.log(error));
+
+    closeAllPopups();
   }
 
   function handleUpdateUser(inputValues) {
@@ -76,7 +86,7 @@ function App() {
       setCurrentUser(userdata);
 
       closeAllPopups();
-    });
+    }).catch(error => console.log(error));
   }
 
   function handleUpdateAvatar(inputValues) {
@@ -84,7 +94,7 @@ function App() {
       setCurrentUser(userdata);
 
       closeAllPopups();
-    });
+    }).catch(error => console.log(error));
   }
 
   function handleAddPlaceSubmit(invputValues) {
@@ -92,7 +102,7 @@ function App() {
       setCards([cardData, ...cards]);
 
       closeAllPopups();
-    })
+    }).catch(error => console.log(error));
   }
 
   return (
@@ -105,7 +115,7 @@ function App() {
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
+          onCardDeleteClick={handleCardDeleteClick}
           cards={cards}
         />
         <Footer />
@@ -128,12 +138,12 @@ function App() {
           onUpdateAvatar={handleUpdateAvatar}
         />
 
-        <PopupWithForm
-          name="confirm-delete"
-          title="Вы уверены?"
-          submitButtonText="Да"
+        <ConfirmDeletePopup
+          isOpen={isConfirmDeletePopupOpen}
+          onClose={closeAllPopups}
+          onConfirm={handleCardDelete}
         >
-        </PopupWithForm>
+        </ConfirmDeletePopup>
 
         <ImagePopup
           card={selectedCard}
